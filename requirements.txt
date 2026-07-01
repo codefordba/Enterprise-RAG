@@ -1,0 +1,7 @@
+streamlit>=1.35.0
+qdrant-client>=1.9.0
+pdfplumber>=0.11.0
+langchain-core>=0.2.0
+langchain-experimental>=0.0.60
+python-dotenv>=1.0.1
+requests>=2.32.0

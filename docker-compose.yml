@@ -1,0 +1,22 @@
+# docker-compose.yml
+services:
+  qdrant-server:
+    image: qdrant/qdrant:latest
+    container_name: qdrant-server
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  embedding-server:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-arm64-latest
+    container_name: embedding-server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./embedding_cache:/data
+    # PRODUCTION FIX: Expanded max client batch boundaries to 128 inputs
+    command: --model-id BAAI/bge-large-en-v1.5 --max-client-batch-size 128
+    restart: unless-stopped
